@@ -2,9 +2,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./app/router.tsx";
+import StyleProvider from "./app/with-style.tsx";
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <StyleProvider>
+      <RouterProvider router={router} />
+    </StyleProvider>
   </StrictMode>
 );
