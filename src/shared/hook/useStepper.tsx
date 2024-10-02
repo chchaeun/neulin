@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, useState } from "react";
+import { useState } from "react";
 import { useImmer } from "use-immer";
 
 interface Props<T> {
@@ -35,26 +35,10 @@ const useStepper = <T,>({ steps, stepFilters, initData }: Props<T>) => {
     setFilteredStep((current) => current + 1);
   };
 
-  const Stepper = ({ children }: { children: ReactNode }) => {
-    return (
-      <>
-        {React.Children.toArray(children).find(
-          (child) =>
-            React.isValidElement(child) && child.props.name === steps[step]
-        )}
-      </>
-    );
-  };
-
-  const Step = ({ name, children }: { name: string; children: ReactNode }) => {
-    return <Fragment key={name}>{children}</Fragment>;
-  };
-
-  Stepper.Step = Step;
-
   const currentStep = steps[step];
   const isFirst = step === 0;
   const isLast = step === steps.length - 1;
+
   return {
     isFirst,
     isLast,
@@ -63,7 +47,6 @@ const useStepper = <T,>({ steps, stepFilters, initData }: Props<T>) => {
     prev,
     next,
     updateData,
-    Stepper,
   };
 };
 
