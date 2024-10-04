@@ -1,0 +1,14 @@
+.fc {
+  @apply text-black h-max !important;
+}
+.fc-button {
+  @apply bg-butter text-black border-none focus:shadow-none !important;
+}
+
+.fc-toolbar-title {
+  @apply text-2xl !important;
+}
+
+.fc-h-event {
+  @apply border-none !important;
+}
