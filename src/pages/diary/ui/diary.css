@@ -10,5 +10,5 @@
 }
 
 .fc-h-event {
-  @apply border-none !important;
+  @apply border-none bg-inherit !important;
 }

@@ -4,11 +4,11 @@ type Sleep = "기상" | "취침";
 interface Info {
   meal: {
     name: Meal;
-    time: number;
+    time: string;
   }[];
   sleep: {
     name: Sleep;
-    time: number;
+    time: string;
   }[];
 }
 

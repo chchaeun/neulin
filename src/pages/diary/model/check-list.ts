@@ -1,7 +1,7 @@
 const getTagList = (list: string[], tag: string) => {
   return list.map((content, index) => {
     return {
-      id: index,
+      id: String(index),
       tag,
       content,
     };
