@@ -2,8 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Init from "../pages/diary/ui/Init";
 import Check from "../pages/diary/ui/Check";
 import Diary from "../pages/diary/ui/Diary";
-import Success from "../pages/diary/ui/Success";
-import Fail from "../pages/diary/ui/Fail";
+import CheckComplete from "../pages/diary/ui/CheckComplete";
 
 const router = createBrowserRouter([
   {
@@ -21,12 +20,8 @@ const router = createBrowserRouter([
     element: <Check />,
   },
   {
-    path: "/diary/success",
-    element: <Success />,
-  },
-  {
-    path: "/diary/fail",
-    element: <Fail />,
+    path: "/diary/check/complete",
+    element: <CheckComplete />,
   },
 ]);
 
