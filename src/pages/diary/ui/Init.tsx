@@ -90,7 +90,7 @@ const Init = () => {
               <div className="p-2 border-b-2">
                 <input
                   type="number"
-                  pattern="\d*"
+                  inputMode="numeric"
                   min={0}
                   max={24}
                   name={meal}
@@ -113,7 +113,7 @@ const Init = () => {
               <div className="p-2 border-b-2">
                 <input
                   type="number"
-                  pattern="\d*"
+                  inputMode="numeric"
                   min={0}
                   max={24}
                   name={sleep}
