@@ -3,8 +3,13 @@ import { useStepper } from "../../../shared/hook/useStepper";
 import { Info, Meal, Sleep } from "../model/type";
 import Stepper from "../../../shared/component/Stepper";
 import Button from "../../../shared/component/Button";
+import { useStore } from "../../../app/useStore";
+import { useNavigate } from "react-router-dom";
 
 const Init = () => {
+  const navigate = useNavigate();
+  const [, setInitData] = useStore("initData");
+
   const { isFirst, isLast, currentStep, data, updateData, prev, next } =
     useStepper<Info>({
       steps: ["아침", "점심", "저녁", "기상", "취침"],
@@ -21,7 +26,7 @@ const Init = () => {
       },
     });
 
-  const handleInputMealChange = (name: Meal, time: number) => {
+  const handleInputMealChange = (name: Meal, time: string) => {
     updateData((data) => {
       const origin = data.meal.find((m) => m.name === name);
 
@@ -38,7 +43,7 @@ const Init = () => {
     });
   };
 
-  const handleInputSleepChange = (name: Sleep, time: number) => {
+  const handleInputSleepChange = (name: Sleep, time: string) => {
     updateData((data) => {
       const origin = data.sleep.find((s) => s.name === name);
 
@@ -56,7 +61,8 @@ const Init = () => {
   };
 
   const handleSubmit = () => {
-    console.log(data);
+    setInitData(data);
+    navigate("/diary");
   };
 
   return (
@@ -84,13 +90,13 @@ const Init = () => {
               <div className="p-2 border-b-2">
                 <input
                   type="number"
+                  pattern="\d*"
                   min={0}
                   max={24}
                   name={meal}
                   className="w-10 focus:outline-none"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    console.log(Number(e.target.value));
-                    handleInputMealChange(meal as Meal, Number(e.target.value));
+                    handleInputMealChange(meal as Meal, e.target.value);
                   }}
                   value={data.meal.find((m) => m.name === meal)?.time}
                 />
@@ -107,15 +113,13 @@ const Init = () => {
               <div className="p-2 border-b-2">
                 <input
                   type="number"
+                  pattern="\d*"
                   min={0}
                   max={24}
                   name={sleep}
                   className="w-10 focus:outline-none"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputSleepChange(
-                      sleep as Sleep,
-                      Number(e.target.value)
-                    )
+                    handleInputSleepChange(sleep as Sleep, e.target.value)
                   }
                   value={data.sleep.find((s) => s.name === "취침")?.time}
                 />
@@ -128,11 +132,11 @@ const Init = () => {
 
       <div className="flex gap-2">
         {!isFirst && (
-          <Button className="bg-black " onClick={prev}>
+          <Button className="!bg-black" onClick={prev}>
             이전
           </Button>
         )}
-        <Button className="bg-black" onClick={isLast ? handleSubmit : next}>
+        <Button className="!bg-black" onClick={isLast ? handleSubmit : next}>
           다음
         </Button>
       </div>
