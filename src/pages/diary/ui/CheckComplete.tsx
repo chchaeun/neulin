@@ -26,7 +26,7 @@ const CheckComplete = () => {
       </h1>
       <div className="flex items-center justify-center h-96">
         <img
-          src="/public/stamp.png"
+          src={"/stamp.png"}
           className="w-1/2 transition ease-in-out animate-bounce"
         />
       </div>

@@ -70,7 +70,7 @@ const Diary = () => {
           }}
           events={events.map((event) => {
             return {
-              id: `${process.env.PUBLIC_URL}/public/stamp.png`,
+              id: `/stamp.png`,
               start: event,
             };
           })}
