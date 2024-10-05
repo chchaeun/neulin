@@ -1,19 +1,23 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { checkList } from "../model/check-list";
 import Button from "../../../shared/component/Button";
 import { Meal } from "../model/type";
 import { useState } from "react";
 import { FaCheckSquare } from "react-icons/fa";
 import { FaSquare } from "react-icons/fa";
+import { useStore } from "../../../app/useStore";
+import { formatDate } from "../util/formatDate";
 
 const Check = () => {
+  const navigate = useNavigate();
+  const [diary, setDiary] = useStore("diary");
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category") as Meal;
   const categoryChecklist = checkList[category];
 
   const [checked, setChecked] = useState<string[]>([]);
 
-  const getId = (tag: string, id: number) => {
+  const getId = (tag: string, id: string) => {
     return `${tag}-${id}`;
   };
 
@@ -36,7 +40,20 @@ const Check = () => {
     setChecked((checkedList) => [...checkedList, id]);
   };
 
-  const handleCompleteClick = () => {};
+  const handleCompleteClick = () => {
+    const dateObj = new Date();
+    const today = formatDate(dateObj);
+
+    if (checked.length > 0) {
+      setDiary({
+        ...diary,
+        ...{ [`${today}`]: { ...diary[`${today}`], [`${category}`]: checked } },
+      });
+      navigate("/diary/check/complete?result=success");
+    } else {
+      navigate("/diary/check/complete?result=fail");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-14">
@@ -59,7 +76,7 @@ const Check = () => {
           </Button>
         ))}
       </div>
-      <Button className="text-white bg-black" onClick={handleCompleteClick}>
+      <Button className="!bg-black" onClick={handleCompleteClick}>
         완료
       </Button>
     </div>
